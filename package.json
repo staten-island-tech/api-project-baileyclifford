@@ -25,5 +25,8 @@
     "url": "https://github.com/staten-island-tech/api-project-baileyclifford/issues"
   },
   "homepage": "https://github.com/staten-island-tech/api-project-baileyclifford#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "genre": "^2.0.0"
+  }
 }
