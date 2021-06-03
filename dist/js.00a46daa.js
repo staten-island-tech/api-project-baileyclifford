@@ -117,141 +117,28 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"js/DOM.js":[function(require,module,exports) {
-"use strict";
+})({"js/index.js":[function(require,module,exports) {
+console.log("connected");
+document.getElementById("button").addEventListener("click", getapi);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.DOMSelectors = void 0;
-const DOMSelectors = {
-  grid: document.querySelector(".movie-grid")
-};
-exports.DOMSelectors = DOMSelectors;
-},{}],"js/genre.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.genres = void 0;
-const genres = [{
-  id: 28,
-  name: "Action"
-}, {
-  id: 12,
-  name: "Adventure"
-}, {
-  id: 16,
-  name: "Animation"
-}, {
-  id: 35,
-  name: "Comedy"
-}, {
-  id: 80,
-  name: "Crime"
-}, {
-  id: 99,
-  name: "Documentary"
-}, {
-  id: 18,
-  name: "Drama"
-}, {
-  id: 10751,
-  name: "Family"
-}, {
-  id: 14,
-  name: "Fantasy"
-}, {
-  id: 36,
-  name: "History"
-}, {
-  id: 27,
-  name: "Horror"
-}, {
-  id: 10402,
-  name: "Music"
-}, {
-  id: 9648,
-  name: "Mystery"
-}, {
-  id: 10749,
-  name: "Romance"
-}, {
-  id: 878,
-  name: "Science Fiction"
-}, {
-  id: 10770,
-  name: "TV Movie"
-}, {
-  id: 53,
-  name: "Thriller"
-}, {
-  id: 10752,
-  name: "War"
-}, {
-  id: 37,
-  name: "Western"
-}];
-exports.genres = genres;
-},{}],"js/index.js":[function(require,module,exports) {
-"use strict";
-
-var _DOM = require("./DOM.js");
-
-var _genre = require("./genre");
-
-const key = "5abf5331108fe97305b5c8a3b501789e";
-let pageNumber = 0;
-
-const query = async function query(pageNumber) {
-  const page = pageNumber;
-  _DOM.DOMSelectors.grid.innerHTML = "";
-
-  try {
-    const response = await fetch("https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?format=jsonp&callback=callback&apikey=https://developer.musixmatch.com/activate/aa87805981fb1a20b593ad2c3bb8dc0d4cbf2e62=".concat(page));
-    const data = await response.json();
-    data.forEach(games => {
-      let genreArr = [];
-
-      const addGenre = function addGenre() {
-        _genre.genres.forEach(element => {
-          if (music.genre_ids.includes(element.id)) {
-            genresArr.push(element.name);
-            return genreArr;
-          }
-        });
-      };
-
-      addGenre();
-
-      _DOM.DOMSelectors.grid.insertAdjacentHTML("beforeend", "<div class=\"games-card\">\n      <div class=\"games-card-front\">\n        <img\n          src=\"".concat(games.thumb, "\"\n          alt=\"\"\n          class=\"poster\"\n        />\n      </div>\n      <div class=\"games-card-back\">\n        <h3 class=\"games-card-header\">").concat(games.title, "</h3>\n        <div class=\"price-box\">\n          <p class=\"price\">Get it now for:$ ").concat(games.salePrice, "</p>\n          <p class=\"price\">Original Price:$ ").concat(games.normalPrice, "</p>\n         \n        </div>\n        <div class=\"score-box\">\n          <p class=\"criticsTitle\">Critics Ratings: ").concat(games.metacriticScore, "</p>\n         \n        </div>\n        <div class=\"savings-box\">\n          <p class=\"savings\">").concat(Math.round(games.savings), "% off</p>\n         \n        </div>\n        <div class=\"games-genres\">\n            From ").concat(storesArr, "\n          </div>\n      </div>\n    </div> "));
-    });
-  } catch (error) {
-    console.log(error);
-    alert("Oops, something bad happened");
+async function getapi() {
+  if (document.getElementById("artist").value != "" && document.getElementById("title").value != "") {
+    document.getElementById("results").innerHTML = "Finding Your Lyrics...";
   }
-};
 
-query();
+  console.log("Fetching lyrics from Artist " + document.getElementById("artist").value + " and song title " + document.getElementById("title").value);
+  var response = await fetch('https://api.lyrics.ovh/v1/' + document.getElementById("artist").value + "/" + document.getElementById("title").value);
+  console.log("done");
+  var data = await response.json();
+  console.log(data);
 
-const nextPage = function nextPage() {
-  _DOM.DOMSelectors.next.addEventListener("click", function next() {
-    pageNumber++;
-    query(pageNumber);
-  });
-};
-
-const previousPage = function previousPage() {
-  _DOM.DOMSelectors.previous.addEventListener("click", function previousbtn() {
-    pageNumber--;
-    query(pageNumber);
-  });
-};
-
-nextPage();
-previousPage();
-},{"./DOM.js":"js/DOM.js","./genre":"js/genre.js"}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+  if (data.lyrics != "") {
+    document.getElementById("results").innerHTML = data.lyrics;
+  } else {
+    document.getElementById("results").innerHTML = "Something went wrong :/";
+  }
+}
+},{}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -279,7 +166,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59959" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51357" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
