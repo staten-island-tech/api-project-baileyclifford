@@ -1,0 +1,21 @@
+html,
+body {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-size: 62.5%;
+  color: white;
+  font-family: "Josefin Slab", serif;
+  font-weight: 500;
+}
+
+body {
+  background-color: #111;
+}
+
+.header {
+  font-size: 5.2rem;
+  margin: 3rem auto;
+  text-align: center;
+}
